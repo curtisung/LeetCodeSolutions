@@ -1,0 +1,25 @@
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        '''
+        result: is two indices returned in an array
+        
+        history problem: keep track of itesm already seen. if a new item plus an old one sums up to 
+        the target, return the two indices. In other words, if a complement to the current item exists in the 
+        history, use those two items.
+        
+        track the indices: instead of hash set, use dictionary to store index along with value
+        history = {item:index}
+        '''
+        
+        history = {}
+        for i, item in enumerate(nums):
+            comp = target - item
+            if (comp in history):
+                return [history[comp], i]
+            history[item] = i
+        return None
