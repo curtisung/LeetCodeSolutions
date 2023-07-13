@@ -1,0 +1,82 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def mergeTwoLists(self, list1, list2):
+        """
+        :type list1: Optional[ListNode]
+        :type list2: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        
+        Reqs: Return the head of the linked list at the end
+        We want to return on sorted linked list
+
+        Algo: Two pointer problem
+            Compare value at both pointers, add it to the new list,
+            then advance in that list
+            Base cases:
+                if a pointer is null, there are no objects left
+                if one ptr is null and the other is not, return
+                non-empty list
+                if both are null, return empty list
+        PC: 
+
+            if !list1:
+                return list2
+            if !list2:
+                return list1
+
+            head = none
+            returnList = none
+
+            if p1 <= p2:
+                head = p1
+                p1 = p1.next
+            else:
+                head = p2
+                p2 = p2.next
+            returnlist = head
+
+            while both p1 and p2:
+                compare p1 and p2:
+                    link the resultList to the lower one
+                    resultList = resultList.next
+            
+            when done, p1 or p2 should be null. Link the non-null one to resultList.
+            return head
+        """
+        if not list1:
+            return list2
+
+        if not list2:
+            return list1
+
+        p1 = list1
+        p2 = list2
+        
+        if p1.val <= p2.val:
+            head = p1
+            p1 = p1.next
+        else:
+            head = p2
+            p2 = p2.next
+        
+        resultList = head
+        while p1 and p2:
+            if p1.val <= p2.val:
+                resultList.next = p1
+                resultList = resultList.next
+                p1 = p1.next
+            else:
+                resultList.next = p2
+                resultList = resultList.next
+                p2 = p2.next
+
+        if p1:
+            resultList.next = p1
+            return head
+        resultList.next = p2
+        return head
+
