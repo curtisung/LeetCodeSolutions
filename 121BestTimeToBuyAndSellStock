@@ -1,0 +1,55 @@
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        Requirements: given an arraw of stock prices
+            maximize profit
+            choose two days, day1 where buy stick and day2 where sell stock
+            return the maximum profit
+
+        algo: linear pass through the list
+            keep note of min value that we've encountered so far, and the max profit
+            when we get to each, if current value > min value, calculate profit and
+                update max if needed
+            update minValue if needed
+            initialize max profit to the signed opposite of first item
+            base case:
+                if length == 1:
+                    return 0
+
+            edge cases: no edge cases yet
+
+        PC:
+            if len(list) == 1:
+                return 0
+
+            maxProf = 0
+            minValue = prices[0]
+            for i in range(1,prices.length):
+                prof = prices[i] - minValue
+                if prof > maxProf:
+                    maxProf = prof
+                if prices[i] < minValue:
+                    minValue = prices[i]
+            return maxProf
+
+        """
+
+        if len(prices) == 1:
+            return 0
+
+        maxProf = 0
+        minValue = prices[0]
+        for i in range(1, len(prices)):
+
+            prof = prices[i]-minValue
+
+            if prof > maxProf:
+                maxProf = prof
+            
+            if prices[i] < minValue:
+                minValue = prices[i]
+
+        return maxProf
+        
