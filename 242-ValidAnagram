@@ -1,0 +1,30 @@
+class Solution(object):
+    def isAnagram(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+
+        Defining factor if the two are valid, is if they have the same character counts.
+        Has nothing to do with order.
+
+        Create two dictionaries, one for each word, where the dictionaries record
+        the counts of each character.
+
+        Time: O(n + m)
+        Memory: O(n + m)
+        """
+        sDict = {}
+        tDict = {}
+        for c in s:
+            if c not in sDict:
+                sDict[c] = 1
+            else:
+                sDict[c] += 1
+        for c in t:
+            if c not in tDict:
+                tDict[c] = 1
+            else:
+                tDict[c] += 1
+        return sDict == tDict
+        
