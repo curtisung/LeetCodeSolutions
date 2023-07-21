@@ -1,0 +1,51 @@
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        What is binary search?
+        It is a searching algorithm that divides that eliminates half the possible
+        items during each pass.
+
+        With a sorted array:
+            Choose the midpoint of the array as the pivot.
+            Check if the pivot is equal to the target.
+            If not, check if the target is greater or less than the pivot, and slice the array in half
+                so that only the side that could possibly contain the value remains
+            
+            if exhuasted all options, return -1
+
+        Write an iterative solution that has a start, end, and mid pointer
+        Set the mid pointer to be the length of the array, floor-divided.
+        Set the start to 0, and end to length-1
+
+        For each iteration:
+            calculate midpoint
+            is the midpoint the target?
+                return midpoint
+            is it above or below?
+                if below, end = mid
+                if above, start = mid
+            determine if should break: if start == end
+        return -1        
+        """
+        if len(nums) == 1:
+            if nums[0] == target:
+                return 0
+            else:
+                return -1
+        
+        start = 0
+        end = len(nums) -1
+
+        while True:
+            mid = (end+start) // 2
+            if nums[mid] == target:
+                return mid
+            if start == end:
+                return -1
+            if target > nums[mid]:
+                start = mid+1
+            else:
+                end = mid
