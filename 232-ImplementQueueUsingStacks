@@ -1,0 +1,56 @@
+class MyQueue(object):
+
+    def __init__(self):
+        self.pushStack = []
+        self.popStack = []
+        
+
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: None
+        """
+        while self.popStack:
+            self.pushStack.append(self.popStack.pop(-1))
+        self.pushStack.append(x)
+
+
+    def pop(self):
+        """
+        :rtype: int
+        """
+        while self.pushStack:
+            self.popStack.append(self.pushStack.pop(-1))
+        return self.popStack.pop(-1)
+
+
+    def peek(self):
+        """
+        :rtype: int
+        """
+        while self.pushStack:
+            self.popStack.append(self.pushStack.pop(-1))
+        return self.popStack[-1]
+
+    def empty(self):
+        """
+        :rtype: bool
+        """
+        return len(self.pushStack) == 0 and len(self.popStack) == 0
+        
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
+
+
+"""
+    push to pushstack, once you hit a peek or pop, flip to other stack
+    if pushing, flip whatever is in the "pop stack" into the "push stack" and then push
+    if popping, flip the push stack into the pop stack then pop/peek 
+
+"""
