@@ -1,0 +1,84 @@
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+
+        Immediately I'm trying to go for an O(n) solution.
+        Brute force would to be use two pointers and progress through every combination
+        that is forward progressing.
+
+        We can't sort it because the order of the subarray is baked in to the array
+
+        We can keep track of highest sum so far.
+        maxSum
+
+        Divide and conquer: we divide the array in half. 
+            we calculate what the sum of each side is.
+            whichever side has larger sum, we take that one
+            [1,-2,3,4]
+            |       |
+        [1,-2]       [3,4]
+        |   |       |   |
+        [1] [-2]    [3] [4]
+
+
+        if size == 1:
+            return the first element
+
+
+
+        If right + left > right:
+            return right + left
+        if right > left:
+            return right
+        else:
+            return left
+
+
+        edge cases: if only one elem, return element value
+        
+        how are we splitting:
+            n // 2
+            roughly in half       
+
+            [-2,1,-3,4,-1,2,1,-5,4]
+        """
+
+        maxSum = float('-inf')
+        currentSum = 0
+
+        for i in range(len(nums)):
+            currentSum += nums[i]
+            if currentSum > maxSum:
+                maxSum = currentSum
+            if currentSum < 0:
+                currentSum = 0
+
+        return maxSum
+            
+
+        # def recurse(nums, isRight):
+        #     if len(nums) == 1:
+        #         return nums[0]
+            
+        #     mid = len(nums) // 2
+        #     left = recurse(nums[:mid], False)
+        #     right = recurse(nums[mid:], True)
+
+        #     sumRL = right + left
+        #     if (isRight == True):
+        #         return max(sumRL, left)
+        #     if (isRight == False):
+        #         return max(sumRL, right)
+        #     if (isRight == None):
+        #         return max(sumRL, right, left)
+
+        # return recurse(nums, None)
+        # if right + left > right:
+        #     return right + left
+        # if right > left:
+        #     return right
+        # else:
+        #     return left
+
