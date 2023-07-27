@@ -1,0 +1,58 @@
+class Solution(object):
+    def floodFill(self, image, sr, sc, color):
+        """
+        :type image: List[List[int]]
+        :type sr: int
+        :type sc: int
+        :type color: int
+        :rtype: List[List[int]]
+
+        Variation of the islands problem
+
+        I think 0(n) time and o(1) space (we do it in place)
+
+        start at given pixel, and return early if it's already the "color"
+
+        add first pixel to queue
+
+        do a BFS while the queue is non empty:
+
+            - queue format to track what pixelse to traverse
+            unqueue a pixel
+            add possible pixels around it
+            - check left (if not off board)
+            - right
+            - up
+            - down
+            add traversable pixes to queue
+            color current pixel
+
+        return image
+        """
+        if image[sr][sc] == color:
+            return image
+
+        queue = []
+        queue.append((sr, sc))
+        originalColor = image[sr][sc]
+        while len(queue) > 0:
+            pair = queue.pop(-1)
+            currentRow, currentCol = pair[0], pair[1]
+            for nextCoords in [(currentRow+1, currentCol),
+                                        (currentRow-1, currentCol), 
+                                        (currentRow, currentCol+1), 
+                                        (currentRow, currentCol-1)]:
+                nextRow, nextCol = nextCoords[0], nextCoords[1]
+                if  nextRow < len(image) and nextRow >= 0 and nextCol < len(image[0]) and nextCol >= 0:
+                    if image[nextRow][nextCol] == originalColor:
+                        queue.append((nextRow, nextCol))
+            image[currentRow][currentCol] = color
+
+        return image
+
+        """
+        things learned:
+            Practice your algorithms more
+            write less verbose code
+            be careful of your assumptions, use dependable data when comparing
+            
