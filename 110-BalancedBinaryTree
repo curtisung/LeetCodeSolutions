@@ -1,3 +1,13 @@
+"""
+Lessons learned: 
+    - Read the problem description thoroughly, and define terms used in the problem
+    and required for the solution
+    - Go through each example
+    - make sure you know how to do DFS and BFS with recursion and iteration
+"""
+
+
+
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
