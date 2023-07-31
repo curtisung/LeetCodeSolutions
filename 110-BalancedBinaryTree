@@ -1,0 +1,47 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        
+        recursive solution
+            do recursive height on left, get height
+            do recursive height on right, get height
+            if either of their heights are -1: return false
+            if |right - left | > 2: return false
+            return true
+            ask every node in tree if it its two subtrees are less than 2 depths apart
+            base case: root is none, return true
+            
+            call this process in outer funciton, evaluate the result of call:
+                if -1:
+                    return false
+                return true
+
+        """
+        if root == None or (root.left == None and root.right == None):
+            return True
+
+        def getDepth(root, depth):
+            if root == None:
+                return depth
+
+            right = getDepth(root.right, depth + 1)
+            if right < 0:
+                return -1
+            
+            left = getDepth(root.left, depth + 1)
+            if left < 0:
+                return -1
+            
+            if abs(right-left) > 1:
+                return -1
+            return max(right, left)
+
+        return getDepth(root, 0) != -1
