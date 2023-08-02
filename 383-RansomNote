@@ -1,0 +1,42 @@
+class Solution(object):
+    def canConstruct(self, ransomNote, magazine):
+        """
+        :type ransomNote: str
+        :type magazine: str
+        :rtype: bool
+
+        Goal: return whether ransomnote can be constructed from magazine
+
+        each letter in mag can ony be used once
+        ransomNote will have 1 or more letters
+        magazine might be empty
+        both are lowercase letters entirely
+
+        if magazine is shorter than ransom note, then it's false, bc not enough letters
+
+        use two frequency lists 
+        go through the rDict. If the frquency of char in rdict <= that in mDict: its good so far. Else: return false
+
+        base case: if magazine == empty return False
+        if length ransom > magazine: return false
+
+        Runtime: O(r + m)
+        Space: O(m)
+        """
+
+        if len(ransomNote) > len(magazine):
+            return False
+
+        mDict = {}
+        for char in magazine:
+            if char not in mDict.keys():
+                mDict[char] = 1
+            else:
+                mDict[char] += 1
+
+        for char in ransomNote:
+            if char not in mDict or mDict[char] == 0:
+                return False
+            mDict[char] -= 1            
+        return True
+
