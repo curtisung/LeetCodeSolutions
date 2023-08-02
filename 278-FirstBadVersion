@@ -1,0 +1,43 @@
+# The isBadVersion API is already defined for you.
+# @param version, an integer
+# @return a bool
+# def isBadVersion(version):
+
+class Solution(object):
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+
+        n objects
+        there is a bad one, and everything after the bad one is also bad
+        use isBadVersion(version) in order to find if it's bad
+
+        Looks like a binary search problem, where we start at n // 2, 
+        if it is good, the bad version is ahead, and we repeat on the second half
+        if it is bad, the bad version is either the current version if the one behind us is good.
+            if the one behind us is also bad, the bad version is behind us.
+
+        base cases:
+            if n = 1: return 1
+        
+
+        g g g g b b b 
+        1 2 3 4 5 6 7
+                            
+        """
+        if n == 1: return 1
+
+        low = 1
+        high = n
+        mid = low + (high-low) // 2
+
+        while True:
+            if isBadVersion(mid):
+                if not isBadVersion(mid-1):
+                    return mid
+                high = mid-1
+            else:
+                low = mid + 1
+            mid = low + (high-low) // 2
+            
