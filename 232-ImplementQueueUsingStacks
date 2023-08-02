@@ -10,8 +10,6 @@ class MyQueue(object):
         :type x: int
         :rtype: None
         """
-        while self.popStack:
-            self.pushStack.append(self.popStack.pop(-1))
         self.pushStack.append(x)
 
 
@@ -19,8 +17,7 @@ class MyQueue(object):
         """
         :rtype: int
         """
-        while self.pushStack:
-            self.popStack.append(self.pushStack.pop(-1))
+        self.peek()
         return self.popStack.pop(-1)
 
 
@@ -28,8 +25,9 @@ class MyQueue(object):
         """
         :rtype: int
         """
-        while self.pushStack:
-            self.popStack.append(self.pushStack.pop(-1))
+        if not self.popStack: # only transfer push -> popstack if popstack is empty!!!
+            while self.pushStack:
+                self.popStack.append(self.pushStack.pop(-1))
         return self.popStack[-1]
 
     def empty(self):
