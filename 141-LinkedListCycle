@@ -1,0 +1,59 @@
+"""
+Lessons Learned: if there is extraneaous information in the question, you probably don't understand it yet. Keep thinking until you do
+    or be aware of it as you move forward.
+    Also, don't be satisfied with solutions that destroy information, even if it's easier.
+"""
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        Do a tortoise and hare pointer traversal.
+        Increment tortoise by 1 and hare by 2.
+        If ever are equal, you have cycle
+        """
+        if head == None: 
+            return False
+
+        tortoise = head
+        hare = head
+        while tortoise != None and hare != None:
+            tortoise = tortoise.next
+            
+            hare = hare.next
+            if hare == None:
+                return False
+            hare = hare.next
+            
+            if tortoise == hare:
+                return True
+        return False
+
+# Not good because destroys information in the process
+    # def hasCycle(self, head):
+        
+    #     # :type head: ListNode
+    #     # :rtype: bool
+    #     # do a traversal while modifying visted Node vals to be None
+    #     # if we ever encounter a node that is None, there's a cycle
+    #     # edge cases:
+    #     #     head == null: return false
+    #     #     head.next == null: return false
+        
+    #     if head == None: 
+    #         return False
+    #     if head.next == None:
+    #         return False
+
+    #     while head != None:
+    #         if head.val == None:
+    #             return True
+    #         head.val = None
+    #         head = head.next
+    #     return False
