@@ -1,0 +1,77 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: int
+        return length of longest palindrome
+
+        break it down:
+        length = 1: return 1
+        baab
+        cbaab = 5
+        cbaabd = 5
+        c and d cannot both be in the word since there;s only one of each
+
+        Frequency list: letters -> freq
+        a:1, b:2, c:2
+        add them all up to get 5.
+        a:1, b:2, c:2, d:1
+        only a singluar letter with freq of 1 is counted. The others are not included.
+        
+        two freq lists, one for capital and one lowercase and just treat as one dict.
+
+
+        we could make single pass through the string.
+        if we havent seen this letter before, add to our frq-list.
+        if we have seen it before, 
+            if freq == 1:
+                fl[letter] += 1
+                increase the maxLength += 2
+            else:
+                fl[letter] += 1
+                increase maxLenghth++
+        if we get through whole string, and maxLength == 0: return 1
+        if there is one letter with frq=1, max len ++
+
+        s = abbcccdeef
+        FL = {}
+
+
+        new approach. It's not about the 1 frqs. It's about even and odd numbers
+        Even frqs are always added to the length.
+        1 3 5        
+        if there are odd numbers, subtract from the total (number of odd numbers - 1)
+        
+        Go through string while keeping a history set. Every time you get to a char you have
+        seen before, add 2 to the max and rm from set. The reason is that if you have seen 
+        the character twice before, those two occurrences will count towards the max, and you
+        now have to keep a lookout for another occurrence of it, which will not intially count toward
+        the max, but it will if you find it again  later in the string.
+
+        Space: O(n)
+        Time: Theta(n)
+        """
+
+        if len(s) == 1:
+            return 1
+        
+        FL = set()
+        maxLength = 0
+        for char in s:
+            if char not in FL:
+                FL.add(char)
+            else:
+                FL.remove(char)
+                maxLength += 2
+        if len(FL) > 0:
+            return maxLength + 1
+        return maxLength
+
+        """
+        What I learned: If you don't have a full understanding of your solution over all cases, try more edge cases and don't
+        start coding unless you have no time left to develop your theory further.
+
+        It's better to spend more time whiteboarding and get a good theory than it is to start coding early with a 
+        wrong theory. 
+        """
+
