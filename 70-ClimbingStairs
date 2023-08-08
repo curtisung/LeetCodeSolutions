@@ -1,0 +1,55 @@
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        recursive approach?
+        base cases:
+            n = 0: 0
+            n = 1: 1 way
+            n = 2: 2 ways
+
+        n = 3: we can make a choice to step 1 or 2 steps:
+             3
+            n(3)
+         2      1
+        n(2)   n(1)
+         2      1
+
+        (1,2)
+        (1,1,1)
+        (2,1)
+
+                    n(4)
+             3              2
+            n(3)           n(2)
+        n(2)    n(1)        2
+         2       1
+    
+        (1,1,1,1)
+        (1,1,2)
+        (1,2,1)
+        (2,1,1)
+        (2,2)
+
+        memoization
+
+        Time Complexity: Theta(n)
+        Space Complexity: Theta(n)
+        Time to solve: 16:34
+"""
+        if n == 1:
+            return 1
+        if n == 2:
+            return 2
+        memo = [None for i in range(n+1)]
+        i = 1
+        memo[1] = 1
+        memo[2] = 2
+        for i in range(3,n+1):
+            memo[i] = memo[i-1] + memo[i-2]
+        return memo[n]
+        """
+        Takeaways: 
+            Remember how dynamic programming works, and be ready to optomize a recursive solution.
+        """
