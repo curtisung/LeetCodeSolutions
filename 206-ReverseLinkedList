@@ -1,0 +1,50 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+
+        iterate thru each node, and make each one point to the prev node
+
+        1 2 3
+        p c t
+
+        prev = 1
+        cur = 1.next
+        while cur != None:
+            temp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = temp
+
+        base cases:
+        head == null: return head
+        head.next == null: return head
+
+        Time: Theta(n)
+        Space: Theta(1)
+        Time to complete: 12:30
+        """
+        if head == None or head.next == None:
+            return head
+
+        prev = head
+        cur = head.next
+        prev.next = None # Make sure the head's next pointer is set to null since it is the new list's end
+        while cur != None:
+            temp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = temp
+        
+        return prev
+
+        """
+        Things I learned:
+        With Linked lists, make sure you don't have cycles. Evaluate the requirements for edge cases. Often this is at the BEGINNING and END of the list.
+        """
