@@ -1,0 +1,104 @@
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        How binary addition works:
+        each place is by power of two.
+        16 8 4 2 1
+
+        Code encode to int, then decode to binary.
+
+        Could also do this:
+        create output string = ""
+        for each digit: 
+            add the two digits + a carryover digit from previous addition
+            if the sum == 0 or 1:
+                output += 0 or 1 + output
+                carry = 0
+            if sum == 2 or 3:
+                output += 0 or 1 + output
+                carry = 1
+
+                   11
+                    11
+                    11
+                    10
+
+        Time: O(max(n,m))
+        Space: O(max(n,m))
+        """
+        # if len(b) == 0:
+        #     return a
+        
+        # aPtr = len(a)-1
+        # bPtr = len(b)-1
+        # output = ""
+        # carry = 0
+        # while aPtr >= 0 or bPtr >= 0 or carry != 0:
+        #     sumAll = 0
+        #     if aPtr >= 0:
+        #         sumAll += int(a[aPtr])
+        #         aPtr -= 1
+        #     if bPtr >= 0:
+        #         sumAll += int(b[bPtr])
+        #         bPtr -= 1
+            
+        #     sumAll += carry
+
+        #     if sumAll == 0:
+        #         currentVal = 0
+        #         carry = 0
+        #     elif sumAll == 1:
+        #         currentVal = 1
+        #         carry = 0
+        #     elif sumAll == 2:
+        #         currentVal = 0
+        #         carry = 1
+        #     elif sumAll == 3:
+        #         currentVal = 1
+        #         carry = 1
+            
+        #     output = str(currentVal) + output
+
+        # return output
+
+        # WRITE IT AGAIN:
+        if len(b) == 0:
+            return a
+        if len(a) == 0:
+            return b
+        """
+        cba
+        000 = val 0 carry 0
+        001 = val 1 carry 0
+        011 = val 0 carry 1
+        111 = val 1 carry 1
+        """
+        aPtr = len(a)-1
+        bPtr = len(b)-1
+        carry = 0
+        output = ""
+        while aPtr >= 0 or bPtr >= 0 or carry != 0:
+            sumAll = 0
+            if aPtr >= 0:
+                sumAll += int(a[aPtr])
+                aPtr -= 1
+            if bPtr >= 0:
+                sumAll += int(b[bPtr])
+                bPtr -= 1
+            
+            sumAll += carry
+
+            output = str(sumAll % 2) + output
+            carry = sumAll // 2
+
+        return output
+
+        
+"""
+What I learned:
+Binary addition is a thing. I feel like this is a useful skill to have 
+for coding interviews, a fringe question about binary numbers.
+"""
