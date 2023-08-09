@@ -1,0 +1,53 @@
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        First idea is a frequency list. count number of times it appears in array,
+        if any frq reaches over n/2 then return that number.
+
+        O(n) time and O(n) space.
+        This works, but can do in constant space.
+
+        Had to look at solutions to understand the O(1) space solution.
+        I had the idea to keep CurrentMost and count earlier, but I didn't understand the intuition that if a number was encountered and also had the same frq as the curMost, the new number could be considered the new curMost.
+        """
+        # if len(nums) == 1:
+        #     return nums[0]
+        # half = len(nums) // 2
+        # FL = {}
+        # for n in nums:
+        #     nStr = str(n)
+        #     if nStr in FL:
+        #         FL[nStr] += 1
+        #     else:
+        #         FL[nStr] = 1
+        #     if FL[nStr] > half:
+        #         return int(nStr)
+
+        # return None
+        if len(nums) == 1:
+            return nums[0]
+
+        half = len(nums) // 2
+        curMost = nums[0]
+        curCount = 1
+
+        for i in range(1, len(nums)):
+            if nums[i] == curMost:
+                curCount += 1
+                if curCount > half:
+                    return curMost
+            else:
+                if curCount == 1:
+                    curMost = nums[i]
+                else:
+                    curCount -= 1
+
+        return curMost
+            
+"""
+Things I learned:
+Talk out your theories even if you think they don't work. Find another angle within 
+your current theory, and say "does this really disqualify it?"
+"""
