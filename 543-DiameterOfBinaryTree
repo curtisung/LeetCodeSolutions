@@ -1,0 +1,85 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def __init__(self):
+        self.maxDiam = 0
+    def diameterOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        has something to do with either adding the depth of its
+            right and left children
+        or 
+        
+        each one calculates its max diameter. It calculates the max diameter by taking the 
+        max of itself, max of its children.
+
+        4 would return 0 as its diameter, 
+        for depth, return max(height right, left) + 1
+        for diam,
+        diam = height right + height left + 2
+        maXdiam = max(diam right, left, diam)
+        4 would return 
+
+        diameter that passes through head node = 
+                    depth of right + depth of left
+        
+        base cases:
+        head == null: 0
+        head.left and .right == null: return 0
+
+        traverse each node. For each, deduce its depth and the max diameter that passes through it.
+
+        diam = maxDepth of left + maxDepth of right
+        max diam = max(diam, left diam, right diam)
+        return {maxDepth: maxDepth + 1, maxDiam: maxDiam}
+
+        pass head into subProcess findMaxDiamAndMaxDepth(head)
+
+        findMaxDiamAndMaxDepth(head, depth):
+            if head==null:
+                return {maxDepth: depth, maxDiam:0}
+            
+            leftMap = func(head.left, depth + 1)
+            rightMap = func(head.right, depth + 1)
+            maxDepth = max(leftMap['maxDepth'], rightMap['maxDepth'])
+            diam = leftMap + rightMap
+            maxDiam = max(leftMap['maxDiam'], rightMap['maxDiam'], diam)
+
+            return maxDepth, maxDiam
+        return maxDiam
+
+        """
+        """
+        returns tree's height and max diameter of tree from this root
+        1: 2, 3
+        2: 1, 2
+        3: 0, 0
+        4: 0,0
+        5: 0,0
+
+        1: 1, 1
+        2: 0, 0
+        """
+        def findMaxDiamAndMaxDepth(head):
+            if head == None:
+                return -1
+            
+            leftHeight = findMaxDiamAndMaxDepth(head.left)
+            rightHeight = findMaxDiamAndMaxDepth(head.right)
+            
+            self.maxDiam = max(self.maxDiam, leftHeight + rightHeight + 2)
+
+            return max(leftHeight, rightHeight) + 1
+        
+        findMaxDiamAndMaxDepth(root)
+        return self.maxDiam
+
+"""
+Things I learned:
+can make memory less used by deleting variables or saving your max answer outside the function itself. It makes it a lot better for memory because you don't have to pass around as many variables.
+"""
