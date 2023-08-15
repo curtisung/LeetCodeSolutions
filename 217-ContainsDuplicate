@@ -1,0 +1,23 @@
+class Solution(object):
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        return true if there's a dup, else false 
+
+        keep a history set for fast search time
+
+        Time: O(n)
+        Space: O(n)
+        
+        """
+        if len(nums) == 1:
+            return False
+        
+        history = set()
+        for item in nums:
+            if item in history: 
+                return True
+            history.add(item)
+
+        return False
