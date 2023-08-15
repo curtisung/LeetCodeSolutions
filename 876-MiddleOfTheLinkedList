@@ -1,0 +1,50 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def middleNode(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+
+        Retrun the middle node of linked list.
+        If 2 mids, return second one
+
+        So if 0indexed, return the ceiling of the final index / 2
+
+        Immediately a tortoise and hare pointer problem I think.
+        Each iteration, the T moves 1 and H moves 2.
+            If H is null, return T
+          T
+        1 2 3
+            H
+            H sees it is last node
+          T
+        1 2
+            H
+            H sees it is past last node
+            t
+        1 2 3 4
+                 h
+        if H.next == null or h == null:
+            return T
+        
+        base case: if head.next == null, return head
+        
+        Time: O(n)
+        Space: O(1)
+        Time to complete: 11 min
+        """
+        if head == None:
+            return head
+        
+        tort = head
+        hare = head
+
+        while hare != None and hare.next != None:
+            tort = tort.next
+            hare = hare.next.next
+        
+        return tort
